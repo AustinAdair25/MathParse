@@ -1,0 +1,15 @@
+(), function (cos, sin, etc, ...)
+- : unary
+^ : power
+* , / : multiplication 
++ , - : addition
+
+expr -> multiplication { ( + | - ) multiplication } 
+multiplication -> power { ( * | / ) power }
+power -> unary { ^ unary }
+unary -> [ - ] token
+token ->  function | number 
+function -> identifier ["(" expr ")"] | "(" expr ")"
+number -> [0..9]+(.[0..9]+)
+identifier -> [a-zA-Z][a-zA-Z0-9]*
+
