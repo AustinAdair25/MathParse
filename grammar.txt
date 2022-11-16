@@ -1,5 +1,5 @@
 (), function (cos, sin, etc, ...)
-- : unary
+- : unary 
 ^ : power
 * , / : multiplication 
 + , - : addition
@@ -10,6 +10,27 @@ power -> unary { ^ unary }
 unary -> [ - ] token
 token ->  function | number 
 function -> identifier ["(" expr ")"] | "(" expr ")"
-number -> [0..9]+(.[0..9]+)
+number -> [0..9]+(.[0..9]+)?
 identifier -> [a-zA-Z][a-zA-Z0-9]*
+
+Tokenizer
+Parse
+BinaryTree
+- print tree 
+- Root: TreeNode
+- TreeNode
+    - Token : from Parse
+    - leftNode
+    - rightNode
+    - number of dashes
+
+
+cos(a + b^2)
+
+-cos
+--+ 
+---a
+---^
+----b
+----2
 
