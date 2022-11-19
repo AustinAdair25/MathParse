@@ -1,7 +1,7 @@
 from tokenizer import Tokenizer
 from parser import Parser
 
-string = "cos(x^2+2*pi*theta)/sqrt(a^2+b^2)"
+string = "a^a^a"
 
 tokens = Tokenizer(string)
 
