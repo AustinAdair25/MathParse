@@ -13,13 +13,22 @@ class BinaryTree:
         queue.put(self.root)
         currentDepth = 0
         currentIndex = 0
+        parentQ = Queue()
+        parentQ.put(None)
         while not queue.empty():
             node = queue.get()
             if node.depth != currentDepth:
                 currentDepth = node.depth
                 currentIndex = 0
                 print()
-            print(' '*(node.space - currentIndex) + node.value,  end='')
+            separator = ' '
+            currentParent = parentQ
+            if currentParent and currentParent.rightChild == node:
+                separator = '-'
+
+            else:
+                parentQ.put(node)
+            print(separator*(node.space - currentIndex) + node.value,  end='')
             #print(node.space - currentIndex - 1, node.value, currentDepth, currentIndex)
             currentIndex += node.space - currentIndex + 1
             if node.leftChild != None:
@@ -27,6 +36,9 @@ class BinaryTree:
             if node.rightChild != None:
                 queue.put(node.rightChild)
         print()
+
+    def printTree2(self):
+        pass
 
     def findSpaceAndDepth(self, space, node, depth):
         if node == None:   # space: 8
