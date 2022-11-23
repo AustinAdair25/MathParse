@@ -1,5 +1,4 @@
 import re
-from xml.etree.ElementTree import tostring
 
 
 class Tokenizer:

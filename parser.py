@@ -1,4 +1,4 @@
-from logging import raiseExceptions
+from binaryTree import BinaryTree, TreeNode
 
 FUNCTION_NAME = ['sqrt', 'exp', 'log', 'sin', 'cos',
                  'tan', 'arcsin', 'arcsos', 'arctan', 'abs']
@@ -8,83 +8,136 @@ class Parser:
     def __init__(self, tokens):
         self.tokens = tokens
         self.currentTokenIndex = 0
-        print("parser")
+        self.parseTree = None
 
     def Parse(self):
-        self.ParseAddition()
+        self.parseTree = BinaryTree(self.ParseAddition())
         if self.currentTokenIndex < len(self.tokens):
             raise Exception("Invalid Token")
+        self.parseTree.findSpaceAndDepth(0, self.parseTree.root, 0)
+        self.parseTree.printTree()
 
     # expr -> multiplication { ( + | - ) multiplication }
     def ParseAddition(self):
-        self.ParseMultiplication()
+        currentNode = None
+        left = self.ParseMultiplication()
+
         operator = self.getCurrentToken()
         while operator and (operator.value == '+' or operator.value == '-'):
             self.next()
-            self.ParseMultiplication()
+            right = self.ParseMultiplication()
+
+            node = TreeNode(operator.value)
+            node.leftChild = left if currentNode == None else currentNode
+            node.rightChild = right
+            currentNode = node
+
             operator = self.getCurrentToken()
+
+        return left if currentNode == None else currentNode
 
     # multiplication -> power { ( * | / ) power }
     def ParseMultiplication(self):
-        self.ParsePower()
+        currentNode = None
+        left = self.ParsePower()
+
         operator = self.getCurrentToken()
         while operator and (operator.value == '*' or operator.value == '/'):
             self.next()
-            self.ParsePower()
+            right = self.ParsePower()
+
+            node = TreeNode(operator.value)
+            node.leftChild = left if currentNode == None else currentNode
+            node.rightChild = right
+            currentNode = node
+
             operator = self.getCurrentToken()
+
+        return left if currentNode == None else currentNode
 
     # power -> unary { ^ unary }
     def ParsePower(self):
-        self.ParseUnary()
+        currentNode = None
+        left = self.ParseUnary()
+
         operator = self.getCurrentToken()
         while operator and (operator.value == '^'):
             self.next()
-            self.ParseUnary()
+            right = self.ParseUnary()
+
+            node = TreeNode(operator.value)
+            node.leftChild = left if currentNode == None else currentNode
+            node.rightChild = right
+            currentNode = node
+
             operator = self.getCurrentToken()
+
+        return left if currentNode == None else currentNode
 
     # unary -> { - } token
     def ParseUnary(self):
+        currentNode = None
         operator = self.getCurrentToken()
         if not operator:
             raise Exception(
                 "No token found, expect an identifier or unary operation")
         while operator and operator.value == '-':
             self.next()
+
+            node = TreeNode('-')
+            if currentNode:
+                currentNode.leftChild = node
+            else:
+                currentNode = node
+
             operator = self.getCurrentToken()
-        self.ParseToken()
+        right = self.ParseToken()
+
+        if currentNode:
+            currentNode.leftChild = right
+            return currentNode
+        else:
+            return right
 
     # token ->  function | number
     def ParseToken(self):
         token = self.getCurrentToken()
         if token.type == 'number':
-            print(token.value)
+            # print(token.value)
             self.next()
+            # create node
+            node = TreeNode(token.value)
+            return node
         else:
-            self.ParseFunction()
+            return self.ParseFunction()
 
     # function -> identifier ["(" expr ")"] | "(" expr ")"
     def ParseFunction(self):
         token = self.getCurrentToken()
         self.next()
         if token.type == "identifier":
+            node = TreeNode(token.value)
+
             op = self.getCurrentToken()
             if op and op.value == '(':
                 if token.value not in FUNCTION_NAME:
                     raise Exception('Invalid function name ' +
                                     '\'' + token.value + '\'')
                 self.next()
-                self.ParseAddition()
+                result = self.ParseAddition()
                 # wait for the ')'
                 self.isClosedParenthesis()
                 self.next()
-            else:
-                print(token.value)
+
+                node.leftChild = result
+            return node
 
         elif token.value == '(':
-            self.ParseAddition()
+            result = self.ParseAddition()
             # wait for the ')'
             self.isClosedParenthesis()
             self.next()
+            return result
         else:
             raise Exception("Can not parse token " + "\'" + token.value + "\'")
 

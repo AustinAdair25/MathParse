@@ -1,47 +1,52 @@
 from tokenizer import Tokenizer
 from parser import Parser
 from binaryTree import TreeNode, BinaryTree
-# string = "a^a^a" -> a = 2 -> ...
-#
-# tokens = Tokenizer(string)
-#
-# try:
-#     Parser(tokens.getTokenList()).Parse()
-# except Exception as ex:
-#     print(ex)
-tree = TreeNode('root')
-a = TreeNode('a')
-b = TreeNode('b')
-tree.leftChild = a
-tree.rightChild = b
-c = TreeNode('c')
-d = TreeNode('d')
-a.leftChild = c
-a.rightChild = d
-e = TreeNode('e')
-f = TreeNode('f')
-b.leftChild = e
-b.rightChild = f
-g = TreeNode('g')
-h = TreeNode('h')
-e.leftChild = g
-e.rightChild = h
 
-i = TreeNode('i')
-g.rightChild = i
+string = "cos(x^2+2*pi*(theta*4))/sqrt((a+a)^2+b^2)"
 
-x = TreeNode('x')
-y = TreeNode('y')
-i.leftChild = x
-i.rightChild = y
+tokens = Tokenizer(string)
 
-m = TreeNode('m')
-n = TreeNode('n')
-x.leftChild = m
-x.rightChild = n
+try:
+    Parser(tokens.getTokenList()).Parse()
+except Exception as ex:
+    print(ex)
+# tree = TreeNode('root')
+# a = TreeNode('a')
+# b = TreeNode('b')
+# tree.leftChild = a
+# #tree.rightChild = b
+# c = TreeNode('c')
+# d = TreeNode('d')
+# a.leftChild = c
+# a.rightChild = d
+# e = TreeNode('e')
+# f = TreeNode('f')
+# b.leftChild = e
+# b.rightChild = f
+# g = TreeNode('g')
+# h = TreeNode('h')
+# e.leftChild = g
+# e.rightChild = h
 
+# i = TreeNode('i')
+# g.rightChild = i
 
-bTree = BinaryTree(tree)
+# x = TreeNode('x')
+# y = TreeNode('y')
+# i.leftChild = x
+# i.rightChild = y
 
-bTree.findSpaceAndDepth(0, tree, 0)
-bTree.printTree()
+# m = TreeNode('m')
+# n = TreeNode('n')
+# x.leftChild = m
+# x.rightChild = n
+
+# o = TreeNode('o')
+# k = TreeNode('k')
+# f.rightChild = o
+# f.leftChild = k
+
+# bTree = BinaryTree(tree)
+
+# bTree.findSpaceAndDepth(0, tree, 0)
+# bTree.printTree()
