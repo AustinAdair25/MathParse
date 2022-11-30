@@ -15,6 +15,7 @@ class Parser:
         if self.currentTokenIndex < len(self.tokens):
             raise Exception("Invalid Token")
         self.parseTree.findSpaceAndDepth(0, self.parseTree.root, 0)
+        # self.parseTree.root.printTree()
         self.parseTree.printTree()
 
     # expr -> multiplication { ( + | - ) multiplication }
@@ -27,7 +28,7 @@ class Parser:
             self.next()
             right = self.ParseMultiplication()
 
-            node = TreeNode(operator.value)
+            node = TreeNode(operator)
             node.leftChild = left if currentNode == None else currentNode
             node.rightChild = right
             currentNode = node
@@ -46,7 +47,7 @@ class Parser:
             self.next()
             right = self.ParsePower()
 
-            node = TreeNode(operator.value)
+            node = TreeNode(operator)
             node.leftChild = left if currentNode == None else currentNode
             node.rightChild = right
             currentNode = node
@@ -65,7 +66,7 @@ class Parser:
             self.next()
             right = self.ParseUnary()
 
-            node = TreeNode(operator.value)
+            node = TreeNode(operator)
             node.leftChild = left if currentNode == None else currentNode
             node.rightChild = right
             currentNode = node
@@ -84,7 +85,7 @@ class Parser:
         while operator and operator.value == '-':
             self.next()
 
-            node = TreeNode('-')
+            node = TreeNode(operator)
             if currentNode:
                 currentNode.leftChild = node
             else:
@@ -106,7 +107,7 @@ class Parser:
             # print(token.value)
             self.next()
             # create node
-            node = TreeNode(token.value)
+            node = TreeNode(token)
             return node
         else:
             return self.ParseFunction()
@@ -116,7 +117,7 @@ class Parser:
         token = self.getCurrentToken()
         self.next()
         if token.type == "identifier":
-            node = TreeNode(token.value)
+            node = TreeNode(token)
 
             op = self.getCurrentToken()
             if op and op.value == '(':

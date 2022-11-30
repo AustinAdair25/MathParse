@@ -1,8 +1,6 @@
 import math
 from queue import Queue
 
-from nbformat import current_nbformat
-
 
 class BinaryTree:
 
@@ -41,47 +39,56 @@ class BinaryTree:
                 parentQ.put(node)
 
             if not currentParent:
-                print(' '*(node.space - currentIndex) + node.value,  end='')
-                currentIndex += node.space - currentIndex + 1
+                print(' '*(node.space - len(node.token.value) -
+                      currentIndex) + node.token.value,  end='')
+                currentIndex += node.space - currentIndex
             else:
                 # current parent has 2 children
                 if currentParent.leftChild and currentParent.rightChild:
                     # current node is left child
                     if node == currentParent.leftChild:
-                        print(' '*(node.space - currentIndex) +
-                              node.value,  end='')
+                        print(' '*(node.space - len(node.token.value) -
+                              currentIndex) + node.token.value,  end='')
                     # current node is right child
                     if node == currentParent.rightChild:
-                        front_space = currentParent.space - currentIndex - 1
-                        back_space = node.space - currentParent.space - 2
+                        front_space = currentParent.space - \
+                            len(currentParent.token.value) - currentIndex - 1
+                        back_space = node.space - \
+                            len(node.token.value) - (currentParent.space -
+                                                     len(currentParent.token.value)) - 2
 
                         print(' ' + '-'*front_space, end='')
                         print('\'', end='')
-                        print('-'*back_space + ' ' + node.value,  end='')
+                        print('-'*back_space + ' ' + node.token.value,  end='')
 
                     # update index
-                    currentIndex += node.space - currentIndex + 1
+                    currentIndex += node.space - currentIndex
 
                 # current parent has only left child, then current node is the left child
                 elif currentParent.leftChild and not currentParent.rightChild:
-                    print(' '*(node.space - currentIndex) + node.value,  end='')
-                    currentIndex += node.space - currentIndex + 1
+                    print(' '*(node.space - len(node.token.value) -
+                          currentIndex) + node.token.value,  end='')
+                    currentIndex += node.space - currentIndex
 
-                    front_space = currentParent.space - currentIndex - 1
+                    front_space = currentParent.space - \
+                        len(currentParent.token.value) - currentIndex - 1
                     print(' ' + '-'*front_space, end='')
                     print('\'', end='')
                     currentIndex += front_space + 2
 
                 # current parent has only right child, then current node is the left child
                 elif not currentParent.leftChild and currentParent.rightChild:
-                    front_space = currentParent.space - currentIndex - 1
-                    back_space = node.space - currentParent.space - 2
+                    front_space = currentParent.space - \
+                        len(currentParent.token.value) - currentIndex - 1
+                    back_space = node.space - \
+                        len(node.token.value) - (currentParent.space -
+                                                 len(currentParent.token.value)) - 2
 
                     print(' ' + ' '*front_space, end='')
                     print('\'', end='')
-                    print('-'*back_space + ' ' + node.value,  end='')
+                    print('-'*back_space + ' ' + node.token.value,  end='')
 
-                    currentIndex += node.space - currentIndex + 1
+                    currentIndex += node.space - currentIndex
 
             if node.leftChild != None:
                 queue.put(node.leftChild)
@@ -99,17 +106,18 @@ class BinaryTree:
             space, node.leftChild, depth + 1)
         # go to right subtree
         rightIndex, rightMax = self.findSpaceAndDepth(
-            leftMax + 4, node.rightChild, depth + 1)
+            leftMax + 6, node.rightChild, depth + 1)
         # visit current node
 
-        node.space = math.floor((leftIndex + rightIndex)/2)
+        node.space = math.floor(
+            (leftIndex + rightIndex)/2) + len(node.token.value)
         return node.space, rightMax
 
 
 class TreeNode:
 
-    def __init__(self, value):
-        self.value = value
+    def __init__(self, token):
+        self.token = token
         self.rightChild = None
         self.leftChild = None
         self.space = None
