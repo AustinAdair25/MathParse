@@ -4,13 +4,13 @@ import re
 class Tokenizer:
     def __init__(self, string):
         self.tokenList = []
-        #regex = r'([a-zA-Z][a-zA-Z0-9]*)|[0-9]+(\.[0-9]*)?|\S'
+        # regex = r'([a-zA-Z][a-zA-Z0-9]*)|[0-9]+(\.[0-9]*)?|\S'
         regex = r'(?P<identifier>[a-zA-Z][a-zA-Z0-9\.]*)|(?P<number>[0-9]+(\.[0-9]*)?)|(?P<operator>\S)'
         for mo in re.finditer(regex, string):
             token = mo.group()
             self.tokenList.append(Token(token, mo.lastgroup))
 
-    def getTokenList(self):
+    def get_token_list(self):
         return self.tokenList
 
 

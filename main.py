@@ -7,9 +7,10 @@ string = "cos(x^2+2*pi*theta)/sqrt(a^2+b^2)"
 tokens = Tokenizer(string)
 
 try:
-    Parser(tokens.getTokenList()).Parse()
+    Parser(tokens.get_token_list()).parse()
 except Exception as ex:
     print(ex)
+
 # tree = TreeNode('root')
 # a = TreeNode('a')
 # b = TreeNode('b')
