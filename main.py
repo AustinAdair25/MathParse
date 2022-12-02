@@ -1,53 +1,37 @@
 from tokenizer import Tokenizer
 from parser import Parser
-from binaryTree import TreeNode, BinaryTree
 
-string = "cos(x^2+2*pi*theta)/sqrt(a^2+b^2)"
+print("CS152 Mathematical Expression Parser")
+while True:
+    string = input('Enter a mathematical expression (type \':q\' to quit): ')
+    if string.strip() == ':q':
+        break
+    tokens = Tokenizer(string.strip())
+    try:
+        parser = Parser(tokens.get_token_list())
+        parser.parse()
+        print("\nThe expression is successfully parsed!\n")
+        while True:
+            print('1. View the parse tree')
+            print('2. Substitute values')
+            print('3. Parse a different expression or Go back)')
+            choice = input("Entern a choice: ")
+            print()
+            if choice == '1':
+                parser.print()
+            elif choice == '2':
+                try:
+                    result = parser.substitute_values()
+                except Exception as ex:
+                    print(ex)
+                    print()
+                    continue
+                print('The result: ' + str(result))
+            elif choice == '3':
+                break
+            else:
+                print("Invalue choice!")
+            print()
 
-tokens = Tokenizer(string)
-
-try:
-    Parser(tokens.get_token_list()).parse()
-except Exception as ex:
-    print(ex)
-
-# tree = TreeNode('root')
-# a = TreeNode('a')
-# b = TreeNode('b')
-# tree.leftChild = a
-# #tree.rightChild = b
-# c = TreeNode('c')
-# d = TreeNode('d')
-# a.leftChild = c
-# a.rightChild = d
-# e = TreeNode('e')
-# f = TreeNode('f')
-# b.leftChild = e
-# b.rightChild = f
-# g = TreeNode('g')
-# h = TreeNode('h')
-# e.leftChild = g
-# e.rightChild = h
-
-# i = TreeNode('i')
-# g.rightChild = i
-
-# x = TreeNode('x')
-# y = TreeNode('y')
-# i.leftChild = x
-# i.rightChild = y
-
-# m = TreeNode('m')
-# n = TreeNode('n')
-# x.leftChild = m
-# x.rightChild = n
-
-# o = TreeNode('o')
-# k = TreeNode('k')
-# f.rightChild = o
-# f.leftChild = k
-
-# bTree = BinaryTree(tree)
-
-# bTree.findSpaceAndDepth(0, tree, 0)
-# bTree.printTree()
+    except Exception as ex:
+        print(ex)
