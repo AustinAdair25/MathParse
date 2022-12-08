@@ -1,9 +1,11 @@
+# math rules
 (), function (cos, sin, etc, ...)
 - : unary 
 ^ : power
 * , / : multiplication 
 + , - : addition
 
+# grammar
 expr -> multiplication { ( + | - ) multiplication } 
 multiplication -> power { ( * | / ) power } | ml -> power
 power -> unary { ^ unary }
@@ -12,18 +14,3 @@ token ->  function | number
 function -> identifier ["(" expr ")"] | "(" expr ")"
 number -> [0..9]+(.[0..9]+)?
 identifier -> [a-zA-Z][a-zA-Z0-9]*
-
-#Valid
-sin(a) + c * d
-sin(a^b - (a + c)) / cos(sqrt(a^2 + b^2 + c^2))
-
-#Invalid
-sin(a) + c *
-sin(a + c* d
-a ++ b /d
-
-
-
-
-
-

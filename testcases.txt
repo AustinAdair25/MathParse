@@ -1,0 +1,8 @@
+#Valid
+sin(a) + c * d
+sin(a^b - (a + c)) / cos(sqrt(a^2 + b^2 + c^2))
+
+#Invalid
+sin(a) + c *
+sin(a + c* d
+a ++ b /d

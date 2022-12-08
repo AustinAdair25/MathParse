@@ -1,7 +1,12 @@
+"""
+    Authors: Nhat Le, Austin Adair
+    A program that validates the syntax of mathematical expression
+"""
+
 from tokenizer import Tokenizer
 from parser import Parser
 
-print("CS152 Mathematical Expression Parser")
+print("Mathematical Expression Parser")
 while True:
     string = input('Enter a mathematical expression (type \':q\' to quit): ')
     if string.strip() == ':q':

@@ -1,12 +1,18 @@
+"""
+    Authors: Nhat Le, Austin Adair
+    A class that stores tokens in a way that follows precedence of operators
+"""
+
 import math
 from queue import Queue
 
 
 class BinaryTree:
-
+    # constructor
     def __init__(self, root):
         self.root = root
 
+    # print the tree to the console
     def print_tree(self):
         # BFS
         queue = Queue()
@@ -96,6 +102,7 @@ class BinaryTree:
                 queue.put(node.rightChild)
         print()
 
+    # determine the space and depth for each tree node
     def find_space_and_depth(self, space, node, depth):
         if node == None:
             return space, space
@@ -115,20 +122,10 @@ class BinaryTree:
 
 
 class TreeNode:
-
+    # constructor
     def __init__(self, token):
         self.token = token
         self.rightChild = None
         self.leftChild = None
         self.space = None
         self.depth = None
-
-    def print_tree(self):
-        if self is None:
-            return
-        if self.leftChild is not None:
-            self.leftChild.print_tree()
-        if self.rightChild is not None:
-            self.rightChild.print_tree()
-
-        print(self.value, self.space, self.depth)

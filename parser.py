@@ -1,3 +1,9 @@
+"""
+    Authors: Nhat Le, Austin Adair
+    A class that parses the token list from tokenizer to 
+    validate the expression and build the parse tree
+"""
+
 import math
 from binaryTree import BinaryTree, TreeNode
 
@@ -6,23 +12,28 @@ FUNCTION_NAME = ['sqrt', 'exp', 'log', 'sin', 'cos',
 
 
 class Parser:
+    # constructor
     def __init__(self, tokens):
         self.tokens = tokens
         self.currentTokenIndex = 0
         self.parseTree = None
 
+    # start parsing and build the parse tree
     def parse(self):
         self.parseTree = BinaryTree(self.parse_addition())
         if self.currentTokenIndex < len(self.tokens):
             raise Exception("Invalid Token")
 
+    # visualize the tree
     def print(self):
         self.parseTree.find_space_and_depth(0, self.parseTree.root, 0)
         self.parseTree.print_tree()
 
+    # allow user to plug in values into the expression
     def substitute_values(self):
         return self.calculate(self.parseTree.root, dict())
 
+    # parse addition expression
     # expr -> multiplication { ( + | - ) multiplication }
     def parse_addition(self):
         currentNode = None
@@ -42,6 +53,7 @@ class Parser:
 
         return left if currentNode == None else currentNode
 
+    # parse multiplication expression
     # multiplication -> power { ( * | / ) power }
     def parse_multiplication(self):
         current_node = None
@@ -61,6 +73,7 @@ class Parser:
 
         return left if current_node is None else current_node
 
+    # parse power expression
     # power -> unary { ^ unary }
     def parse_power(self):
         current_node = None
@@ -80,6 +93,7 @@ class Parser:
 
         return left if current_node is None else current_node
 
+    # parse unary expression
     # unary -> { - } token
     def parse_unary(self):
         current_node = None
@@ -109,6 +123,7 @@ class Parser:
         else:
             return right
 
+    # parse token
     # token ->  function | number
     def parse_token(self):
         token = self.get_current_token()
@@ -121,6 +136,7 @@ class Parser:
         else:
             return self.parse_function()
 
+    # parse function
     # function -> identifier ["(" expr ")"] | "(" expr ")"
     def parse_function(self):
         token = self.get_current_token()
@@ -151,20 +167,24 @@ class Parser:
         else:
             raise Exception("Can not parse token " + "\'" + token.value + "\'")
 
+    # return the current token
     def get_current_token(self):
         index = self.currentTokenIndex
         if index < len(self.tokens):
             return self.tokens[index]
         return None
 
+    # move to the next token
     def next(self):
         self.currentTokenIndex += 1
 
+    # check if the current token is a ')'
     def is_closed_parenthesis(self):
         token = self.get_current_token()
         if not token or token.value != ')':
             raise Exception("Expected ')'")
 
+    # get the values from user and calculate the expression
     def calculate(self, node, hash_map=dict()):
         if node is None:
             return 0
@@ -185,6 +205,7 @@ class Parser:
             #print(leftOperant, righ)
             return self.doMath(node.token.value, leftOperant, rightOperant)
 
+    # perform mathematical operators
     def doMath(self, operator, left, right):
         if operator == '+':
             return left + right
