@@ -47,22 +47,25 @@ To run this project locally, follow these steps:
 2. **Navigate to the project directory:**
    ```sh
    cd mathematical-expression-parser
-(Optional) Set up a virtual environment:
-python3 -m venv venv
-source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-Install dependencies (if any):
-pip install -r requirements.txt
-Run the program:
-python main.py
+3. (Optional) Set up a virtual environment:
+   ```sh
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+4. Install dependencies (if any):
+   ```sh
+   pip install -r requirements.txt
+5. Run the program:
+   ```sh
+   python main.py
+
 🎮 Example Usage
+1. Enter a mathematical expression, e.g., 3 + 5 * (2 - 8).
+2. The program will parse and validate the expression.
+4. Choose an option to view the parse tree or substitute values into variables.
 
-Enter a mathematical expression, e.g., 3 + 5 * (2 - 8).
-The program will parse and validate the expression.
-Choose an option to view the parse tree or substitute values into variables.
 📩 Contact Me
-
 Feel free to reach out for questions or collaboration opportunities:
-
-Email: [Your Email Here]
-LinkedIn: [Your LinkedIn Here]
+* Email: [Your Email Here]
+* LinkedIn: [Your LinkedIn Here]
+  
 💡 If you like this project, consider giving it a star on GitHub! ⭐
