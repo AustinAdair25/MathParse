@@ -43,8 +43,10 @@ To run this project locally, follow these steps:
 1. **Clone the repository:**
    ```sh
    git clone https://github.com/yourusername/mathematical-expression-parser.git
-Navigate to the project directory:
-cd mathematical-expression-parser
+
+2. **Navigate to the project directory:**
+   ```sh
+   cd mathematical-expression-parser
 (Optional) Set up a virtual environment:
 python3 -m venv venv
 source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
