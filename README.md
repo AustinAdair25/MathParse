@@ -64,7 +64,7 @@ To run this project locally, follow these steps:
 4. Choose an option to view the parse tree or substitute values into variables.
 
 
-📩 Contact Me
+📩 Contact Me  
 Feel free to reach out for questions or collaboration opportunities:
 * Email: [Your Email Here]
 * LinkedIn: [Your LinkedIn Here]
