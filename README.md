@@ -59,15 +59,17 @@ To run this project locally, follow these steps:
    python main.py
 
 🎮 Example Usage
-1. Enter a mathematical expression, e.g., 3 + 5 * (2 - 8).
+
+1. Enter a mathematical expression, e.g., `3 + 5 * (2 - 8)`.
 2. The program will parse and validate the expression.
-4. Choose an option to view the parse tree or substitute values into variables.
+3. Choose an option to view the parse tree or substitute values into variables.
 
+📩 Contact Me
 
-📩 Contact Me  
 Feel free to reach out for questions or collaboration opportunities:
-* Email: [Your Email Here]
-* LinkedIn: [Your LinkedIn Here]
+- **Email:** [Your Email Here]
+- **LinkedIn:** [Your LinkedIn Here]
+
   
   
 💡 If you like this project, consider giving it a star on GitHub! ⭐
